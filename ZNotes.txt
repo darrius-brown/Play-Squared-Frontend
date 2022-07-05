@@ -1,0 +1,36 @@
+A website to enjoy several different games revolved around Squares
+2048(maybe)
+Nickelodeon styled
+2Fuse
+Reflex 
+Simon Says
+Matching
+Wordle
+Connect 3(AI)
+Math game to match squares and square roots
+
+Clicking the name of the game will direct you to a 4x4 board to play
+Users will need an account to play\
+Highscores will be saved in database
+Leaderboard for each game
+Should be able to click users name and see all their high scores for each game
+Feature to like/favorite games
+
+Excalidraw
+https://excalidraw.com/#json=9Qch4mu28QwcazTlKL09J,Zt6GQgQAIxO8pUSo3hTNcA
+
+WhiteBoard
+Games need to be finished first. No CSS until they are finished
+3 games minimum for completed project
+I choose:
+1.) Simon Says
+2.) Math
+3.) 2Fuse
+
+Once games functional:
+Set up databases
+user authentication:
+Leaderboard database:
+Recommend a square game: (Full CRUD)
+
+Each game will be a component OR each game is its own page
