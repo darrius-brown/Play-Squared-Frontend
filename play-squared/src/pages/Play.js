@@ -10,7 +10,7 @@ function Play() {
         <h1>Play Play²</h1>
       </header>
       <div>
-        <Board/>
+        {/* <Board/> */}
         <Simon/>
         
       </div>

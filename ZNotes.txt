@@ -1,3 +1,7 @@
+Potential Fixes:
+Dry code in styles.js
+
+
 A website to enjoy several different games revolved around Squares
 2048(maybe)
 Nickelodeon styled
@@ -34,3 +38,17 @@ Leaderboard database:
 Recommend a square game: (Full CRUD)
 
 Each game will be a component OR each game is its own page
+
+Leaderboard
+The Leaderboard is not a Model
+Use Game Model and pull from this Model\
+to create the leaderboard
+ Model 
+ Game  
+    name of game:
+    scores: [
+        {user: name,
+        score: 0,
+        date: today}
+    ]
+    
