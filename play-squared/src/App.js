@@ -1,4 +1,5 @@
 import './App.css';
+import React, {useEffect, useState} from 'react'
 import { Routes, Route } from 'react-router-dom';
 import About from './pages/About';
 import GameRecommendation from './pages/GameRecs';
@@ -17,7 +18,9 @@ import GameRecsView from './pages/GameRecsView';
 
 
 
+
 function App() {
+
   return (
     <div>
       <NavBar/>
