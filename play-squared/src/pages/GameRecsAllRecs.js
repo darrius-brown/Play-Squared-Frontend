@@ -6,9 +6,11 @@ function GameRecsAllRecs() {
   const [database, setDatabase] = useState([])
   
   function getDatabase() {
-    const data =  getGameRecommendations()
-    setDatabase(data)
-    console.log(data)
+    getGameRecommendations()
+    .then ((data) => {
+      console.log(data)
+      setDatabase(data)})
+    
   }
 
   useEffect(() => {

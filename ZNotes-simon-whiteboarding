@@ -8,3 +8,6 @@ After 1 second, make the board unhighlight it
 Then wait for a user to click the square
 The users clicked square should be pushed into an array
 Check after each click if the arrays match
+
+Achievements
+Figured out how to map through an array of styled components and return multiple styled components which are all components
