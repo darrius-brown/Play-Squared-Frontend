@@ -12,7 +12,6 @@ export function CreateVariables(){
             `}
       `
   }
-  console.log(squares)
   return squares
 }
 

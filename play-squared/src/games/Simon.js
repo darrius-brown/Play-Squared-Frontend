@@ -1,41 +1,54 @@
 import React, { useState, useEffect } from 'react'
 import { CreateVariables } from '../styled-components/styles'
-function Simon() { 
+function Simon() {
     const initialState = {
         boardSize: 16,
         chosenSquare: null,
         round: 1,
         previousSquares: []
-        
+
     }
-    const [randomSquareState, setFormState] = useState(initialState)
+    const [squareState, setSquareState] = useState(initialState)
+    const [squareStateHistory, setSquareStateHistory] = useState([])
+
+    const removeSquare = () => {
+        setTimeout(() => {
+            setSquareState({
+                boardSize: 16,
+                chosenSquare: null,
+                round: squareState.round + 1,
+            })
+        }, 1000)
+    }
+
     const placeSquare = () => {
-        setFormState({
+        const newSquare = Math.floor(Math.random() * squareState.boardSize)
+        setSquareState({
             boardSize: 16,
-            chosenSquare: Math.floor(Math.random() * randomSquareState.boardSize),
-            round: randomSquareState.round + 1,
-            previousSquares: randomSquareState.previousSquares.push(randomSquareState.chosenSquare)
+            chosenSquare: newSquare,
+            round: squareState.round + 1,
         })
-        const timeout = setTimeout(() => {
-        setFormState({
-            boardSize: 16,
-            chosenSquare: null,
-            round: randomSquareState.round + 1,
-            previousSquares: randomSquareState.previousSquares
-        })
-        }, 3000)
-        console.log(randomSquareState.chosenSquare)
-    }   
-    
+        const newArray = [...squareStateHistory, newSquare]
+        setSquareStateHistory(newArray)
+        // changePrevSqrArr()
+        // removeSquare()
+    }
+    const kingFunction  = () => {
+        setTimeout(placeSquare, 10);
+        setTimeout(removeSquare, 30);
+    }
+
     return (
         <div>
-        <div className='medium-board'>
-            {CreateVariables().map((Item, index) =>  (randomSquareState.chosenSquare === index ? <Item id={index} simon /> : <Item id={index} />)
-            )}
-        </div>
-        <button onClick={placeSquare}>Start Round {randomSquareState.round}</button>
+            <div className='medium-board'>
+                {CreateVariables().map((Item, index) => (squareState.chosenSquare === index ? <Item id={index} simon on /> : <Item id={index} />)
+                )}
+            </div>
+            <button onClick={kingFunction}>Start Round {squareState.round}</button>
         </div>
     )
 }
 
 export default Simon
+
+//execute a func that goes through new array (for loop)
