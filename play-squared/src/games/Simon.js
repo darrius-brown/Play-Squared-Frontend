@@ -1,93 +1,74 @@
 import React, { useState, useEffect } from 'react'
 import { CreateVariables } from '../styled-components/styles'
 function Simon() {
+    
     const initialState = {
         boardSize: 16,
         chosenSquare: null,
-        round: 1,
-        previousSquares: []
-
     }
+    
     const [squareState, setSquareState] = useState(initialState)
-    const [squareStateHistory, setSquareStateHistory] = useState([])
+    const newSquare = Math.floor(Math.random() * squareState.boardSize)
+    const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
+    const [solutionState, setSolutionState] = useState(squareStateHistory)
+    const [hiddenState, setHiddenState] = useState(false)
 
-    const timeout = (delay, history) => {
-        return new Promise( res => setTimeout(setSquareState({
-            boardSize: 16,
-            chosenSquare: history,
-            round: squareState.round,
-        }), delay ))
-    }
-    const timeout2 = (delay) => {
-        return new Promise( res => setTimeout(setSquareState({
-            boardSize: 16,
-            chosenSquare: null,
-            round: squareState.round,
-        }), delay ))
-    }
-    const historyPlacement = async (history) => {
-        for(let i = 0; i <=history.length; i++) {
-            console.log('running for loop')
-            await timeout(1000, history[i])
-            await timeout2(1000)
-            // await setTimeout(() => {
-            //     setSquareState({
-            //         boardSize: 16,
-            //         chosenSquare: history[i],
-            //         round: squareState.round,
-            //     })
-            // }, 1000)
-            // await setTimeout(() => {
-            //     setSquareState({
-            //         boardSize: 16,
-            //         chosenSquare: null,
-            //         round: squareState.round,
-            //     })
-            // }, 1000)
-            console.log(history[i] + " should be in array")
+    const squareClicked = (squareClicked) => {
+        const newArr = [...solutionState]
+        const correctSquare = newArr.shift()
+        setSolutionState(newArr)
+        if (correctSquare == squareClicked) {
+            if(newArr.length === 0) {
+                const newArray = [...squareStateHistory, newSquare]
+                setSquareStateHistory(newArray)
+                setSolutionState(newArray)
+            } 
+        } else {
+            alert('game over')
+            let newGameSquare = newSquare
+            setSquareStateHistory([newGameSquare])
+            setSolutionState([newGameSquare])
+            setHiddenState(false)
         }
     }
     
-    const placeSquare = () => {
-        // if(squareStateHistory.length !== 0) {
-        //     historyPlacement(squareStateHistory)
-        // } else {
-        //     console.log('No History!')
-        // }
-        const newSquare = Math.floor(Math.random() * squareState.boardSize)
-        setSquareState({
-            boardSize: squareState.boardSize,
-            chosenSquare: newSquare,
-            round: squareState.round + 1,
-        })
-        const newArray = [...squareStateHistory, newSquare]
-        setSquareStateHistory(newArray)
-        setTimeout(() => {
+    const placeHistory = (square) => {
+        return new Promise(resolve => {
             setSquareState({
-                boardSize: squareState.boardSize,
-                chosenSquare: null,
-                round: squareState.round + 1,
+                boardSize: 16,
+                chosenSquare: square,
             })
-        }, 1000)
-        console.log(squareStateHistory)
+            setTimeout(() => {
+                setSquareState({
+                    boardSize: 16,
+                    chosenSquare: null,
+                })
+                setTimeout(() => {
+                    resolve()
+                }, 100)
+            }, 1000)
+        })
     }
-    const startRound =  () => {
-        let myHistory = historyPlacement(squareStateHistory)
-        console.log(myHistory)
-        if(squareStateHistory.length !== 0) {
-            historyPlacement(squareStateHistory)
-        } else {
-            console.log('No History!')
+
+    const startGame = async () => {
+        for (const square of squareStateHistory) {
+            await placeHistory(square)
         }
-        placeSquare()
     }
+    
+    const hideButton = () => {
+        setHiddenState(true)
+        console.log('now hidden')
+    }
+   
     return (
         <div>
             <div className='medium-board'>
-                {CreateVariables().map((Item, index) => (squareState.chosenSquare === index ? <Item id={index} simon /> : <Item id={index} />)
+                {CreateVariables().map((Item, index) => (squareState.chosenSquare === index ? <Item id={index} simon /> : <Item id={index} onClick = {e => squareClicked(e.target.id)} />)
                 )}
             </div>
-            <button onClick={startRound}>Start Round {squareState.round}</button>
+            <button className = {hiddenState === true ? 'hidden' : 'start-game'} onClick={() => { startGame(); hideButton();}}> Start Game </button>
+            <button className = {hiddenState === false ? 'hidden' : 'start-round'} onClick={() => startGame()}> Start Round </button>
         </div>
     )
 }
