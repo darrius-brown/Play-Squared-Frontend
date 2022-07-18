@@ -1,7 +1,31 @@
+.large-board {
+  display: inline-grid;
+  grid-template-columns: 100px 100px 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px 100px 100px;
+  column-gap: 15px;
+  row-gap: 15px;
+  background-color: rgb(168, 166, 166);
+  padding: 15px;
+  border-radius: 5px;
+  margin-left: 710px;
+}
+
 .medium-board {
   display: inline-grid;
   grid-template-columns: 100px 100px 100px 100px;
   grid-template-rows: 100px 100px 100px 100px;
+  column-gap: 15px;
+  row-gap: 15px;
+  background-color: rgb(168, 166, 166);
+  padding: 15px;
+  border-radius: 5px;
+  margin-left: 710px;
+}
+
+.small-board {
+  display: inline-grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
   column-gap: 15px;
   row-gap: 15px;
   background-color: rgb(168, 166, 166);

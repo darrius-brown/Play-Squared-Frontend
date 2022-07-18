@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { CreateVariables } from '../styled-components/styles'
 function Simon() {
     
-    const initialState = {
-        boardSize: 16,
-        chosenSquare: null,
-    }
-    
-    const [squareState, setSquareState] = useState(initialState)
-    const newSquare = Math.floor(Math.random() * squareState.boardSize)
+    const [boardState, setBoardState] = useState(25)
+    const [squareState, setSquareState] = useState(null)
+    const newSquare = Math.floor(Math.random() * boardState)
     const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
     const [solutionState, setSolutionState] = useState(squareStateHistory)
     const [hiddenState, setHiddenState] = useState(false)
-
+    // const changeBoard = () => {
+    //     setSquareState({
+    //         boardSize: boardSize,
+    //         chosenSquare: null,
+    //     })
+    // }
     const squareClicked = (squareClicked) => {
         const newArr = [...solutionState]
         const correctSquare = newArr.shift()
@@ -34,15 +35,13 @@ function Simon() {
     
     const placeHistory = (square) => {
         return new Promise(resolve => {
-            setSquareState({
-                boardSize: 16,
-                chosenSquare: square,
-            })
+            setSquareState(
+                square
+            )
             setTimeout(() => {
-                setSquareState({
-                    boardSize: 16,
-                    chosenSquare: null,
-                })
+                setSquareState(   
+                    null
+                )
                 setTimeout(() => {
                     resolve()
                 }, 100)
@@ -63,8 +62,8 @@ function Simon() {
    
     return (
         <div>
-            <div className='medium-board'>
-                {CreateVariables().map((Item, index) => (squareState.chosenSquare === index ? <Item id={index} simon /> : <Item id={index} onClick = {e => squareClicked(e.target.id)} />)
+            <div className={boardState === 9 ? 'small-board' : boardState === 16 ? 'medium-board' : boardState === 25 ? 'large-board' : 'medium-board'}>
+                {CreateVariables(boardState).map((Item, index) => (squareState === index ? <Item id={index} simon /> : <Item id={index} onClick = {e => squareClicked(e.target.id)} />)
                 )}
             </div>
             <button className = {hiddenState === true ? 'hidden' : 'start-game'} onClick={() => { startGame(); hideButton();}}> Start Game </button>
