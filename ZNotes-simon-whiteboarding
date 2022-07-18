@@ -1,13 +1,10 @@
-Simon² Notes
-We have the board
-After 1 second, make the board highlight a square a color
-    Need to find the square we want to highlight
-    
-This square should be saved in an array
-After 1 second, make the board unhighlight it
-Then wait for a user to click the square
-The users clicked square should be pushed into an array
-Check after each click if the arrays match
+Need:
+Make it so squares can't be clicked until function is finished
 
 Achievements
 Figured out how to map through an array of styled components and return multiple styled components which are all components
+multi grid functionality
+
+
+Struggles
+setTimeouts in for loops

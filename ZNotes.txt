@@ -52,3 +52,11 @@ to create the leaderboard
         date: today}
     ]
     
+Next Steps
+Simon is complete so.....
+We need to set up user authentication
+Once this is set up, we need full CRUD
+How to communicate with backend (Maybe chat with david) (Look at P3)
+Once full crud is done, style
+depending on time, deploy OR
+Create one more game

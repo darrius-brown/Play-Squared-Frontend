@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import { CreateVariables } from '../styled-components/styles'
 function Simon() {
     
-    const [boardState, setBoardState] = useState(25)
     const [squareState, setSquareState] = useState(null)
+    const [boardState, setBoardState] = useState(9)
     const newSquare = Math.floor(Math.random() * boardState)
     const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
     const [solutionState, setSolutionState] = useState(squareStateHistory)
     const [hiddenState, setHiddenState] = useState(false)
-    // const changeBoard = () => {
-    //     setSquareState({
-    //         boardSize: boardSize,
-    //         chosenSquare: null,
-    //     })
-    // }
+    const [scoreState, setScoreState] = useState(0)
+    
+    const changeBoard = (gridValue) => {
+        setBoardState(
+            parseInt(gridValue)
+        )
+    }
     const squareClicked = (squareClicked) => {
         const newArr = [...solutionState]
         const correctSquare = newArr.shift()
@@ -23,9 +24,11 @@ function Simon() {
                 const newArray = [...squareStateHistory, newSquare]
                 setSquareStateHistory(newArray)
                 setSolutionState(newArray)
+                setScoreState(scoreState + 1)
             } 
         } else {
             alert('game over')
+            //Push the score into the database
             let newGameSquare = newSquare
             setSquareStateHistory([newGameSquare])
             setSolutionState([newGameSquare])
@@ -59,15 +62,20 @@ function Simon() {
         setHiddenState(true)
         console.log('now hidden')
     }
-   
+    
     return (
         <div>
+            {/* <button onClick = {e => changeBoard(e.target.value)}>9</button>
+            <button onClick = {e => changeBoard(e.target.value)}>16</button>
+            <button onClick = {e => changeBoard(e.target.value)}>25</button> */}
             <div className={boardState === 9 ? 'small-board' : boardState === 16 ? 'medium-board' : boardState === 25 ? 'large-board' : 'medium-board'}>
                 {CreateVariables(boardState).map((Item, index) => (squareState === index ? <Item id={index} simon /> : <Item id={index} onClick = {e => squareClicked(e.target.id)} />)
                 )}
             </div>
             <button className = {hiddenState === true ? 'hidden' : 'start-game'} onClick={() => { startGame(); hideButton();}}> Start Game </button>
             <button className = {hiddenState === false ? 'hidden' : 'start-round'} onClick={() => startGame()}> Start Round </button>
+            <h3>Score: {scoreState}</h3>
+            
         </div>
     )
 }
