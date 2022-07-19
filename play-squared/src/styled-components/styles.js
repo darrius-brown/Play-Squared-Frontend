@@ -6,6 +6,7 @@ export function CreateVariables(boardSize){
       background-color: rgba(212, 209, 209, 0.8);
       border-radius: 2px;
       padding: 10px;
+      cursor: pointer;
  
         ${props => props.simon && css`
         background: red;

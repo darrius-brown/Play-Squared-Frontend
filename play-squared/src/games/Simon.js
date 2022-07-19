@@ -12,7 +12,7 @@ function Simon() {
     
     const changeBoard = (gridValue) => {
         setBoardState(
-            parseInt(gridValue)
+            gridValue
         )
     }
     const squareClicked = (squareClicked) => {
@@ -25,6 +25,7 @@ function Simon() {
                 setSquareStateHistory(newArray)
                 setSolutionState(newArray)
                 setScoreState(scoreState + 1)
+                startGame(newArray)
             } 
         } else {
             alert('game over')
@@ -33,6 +34,7 @@ function Simon() {
             setSquareStateHistory([newGameSquare])
             setSolutionState([newGameSquare])
             setHiddenState(false)
+            setScoreState(0)
         }
     }
     
@@ -52,8 +54,12 @@ function Simon() {
         })
     }
 
-    const startGame = async () => {
-        for (const square of squareStateHistory) {
+    const startGame = async (newArray) => {
+        let updatedArray = squareStateHistory
+        if (newArray) {
+            updatedArray = newArray
+        }
+        for (const square of updatedArray) {
             await placeHistory(square)
         }
     }
@@ -65,9 +71,9 @@ function Simon() {
     
     return (
         <div>
-            {/* <button onClick = {e => changeBoard(e.target.value)}>9</button>
-            <button onClick = {e => changeBoard(e.target.value)}>16</button>
-            <button onClick = {e => changeBoard(e.target.value)}>25</button> */}
+            <button onClick = {() =>changeBoard(9)}>9</button >
+            <button onClick = {() =>changeBoard(16)}>16</button>
+            <button onClick = {() => changeBoard(25)}>25</button>
             <div className={boardState === 9 ? 'small-board' : boardState === 16 ? 'medium-board' : boardState === 25 ? 'large-board' : 'medium-board'}>
                 {CreateVariables(boardState).map((Item, index) => (squareState === index ? <Item id={index} simon /> : <Item id={index} onClick = {e => squareClicked(e.target.id)} />)
                 )}

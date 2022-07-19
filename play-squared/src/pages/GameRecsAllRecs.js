@@ -22,15 +22,25 @@ function GameRecsAllRecs() {
       <h2>Loading.....</h2>
     )
   }
+  const renderGameRecs = () => { 
+  return database.map((gameRec, index) => {
+      return (
+        <div className='game-rec' key={index}>
+          <Link to={`${gameRec.pk}`} className='game-rec-title'>{gameRec.game_name}</Link>
+          <p>{gameRec.description}</p>
+        </div>
+        )
+  })
+  }
+
     return (
         <div className='all-recs-container'>
           <header>
             <h1>All Recommendations</h1>
           </header>
-          <div className='all recs'>
-            <div className='all-rec'>
-                Recommendation description
-                <Link to='view'>View</Link>
+          <div className='all-recs-container'>
+            <div className='game-rec'>
+                {renderGameRecs()}
             </div>
           </div>
         </div>
