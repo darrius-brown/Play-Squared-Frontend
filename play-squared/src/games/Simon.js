@@ -79,7 +79,6 @@ function Simon() {
                 )}
             </div>
             <button className = {hiddenState === true ? 'hidden' : 'start-game'} onClick={() => { startGame(); hideButton();}}> Start Game </button>
-            <button className = {hiddenState === false ? 'hidden' : 'start-round'} onClick={() => startGame()}> Start Round </button>
             <h3>Score: {scoreState}</h3>
             
         </div>

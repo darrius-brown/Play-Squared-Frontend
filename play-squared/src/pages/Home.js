@@ -10,7 +10,7 @@ function Home() {
       <div className='games-container'>
         <div className='game'>
           Game Image
-          <Link to='play'>Create</Link>
+          <Link to='simon'>Create</Link>
         </div>
       </div>
     </div>

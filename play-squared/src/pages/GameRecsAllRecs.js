@@ -26,7 +26,7 @@ function GameRecsAllRecs() {
   return database.map((gameRec, index) => {
       return (
         <div className='game-rec' key={index}>
-          <Link to={`${gameRec.pk}`} className='game-rec-title'>{gameRec.game_name}</Link>
+          <Link to={`/gamerec/${gameRec.pk}`} className='game-rec-title'>{gameRec.game_name}</Link>
           <p>{gameRec.description}</p>
         </div>
         )

@@ -38,7 +38,7 @@ function SignUp() {
   }
 
   return (
-    <div className='signUpMain'>
+    <div className='sign-up'>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <input type="text"
@@ -89,15 +89,6 @@ function SignUp() {
           value={formState.passwordConfirm}
         />
         <label htmlFor="passwordConfirm">Confirm password</label>
-
-        <label htmlFor="role"></label>
-        <h4>Role</h4>
-        <select onChange={handleChange}
-          id="role"
-          value={formState.role}>
-          <option value="user">user</option>
-          <option value="admin">admin</option>
-        </select>
 
         <button type="submit" onClick={handleSubmit}> Sign Up </button>
 

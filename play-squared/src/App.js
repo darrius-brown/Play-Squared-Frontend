@@ -15,6 +15,7 @@ import GameRecsMyRec from './pages/GameRecsMyRec';
 import GameRecsAllRecs from './pages/GameRecsAllRecs';
 import GameRecsEdit from './pages/GameRecsEdit';
 import GameRecsView from './pages/GameRecsView';
+import Simon from './games/Simon';
 
 
 
@@ -28,11 +29,11 @@ function App() {
         <Route path='/signin' element={<SignIn/>}/>
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/' element={<Home/>}/>
-        <Route path='/play' element={<Play/>}/>
+        <Route path='/simon' element={<Simon/>}/>
         <Route path='/leaderboard' element={<Leaderboard/>}/>
         <Route path='/gamerec' element={<GameRecommendation/>}/>
         <Route path='/gamerec/allrecs' element={<GameRecsAllRecs/>}/>
-        <Route path='/gamerec/allrecs/view' element={<GameRecsView/>}/>
+        <Route path='/gamerec/:_id' element={<GameRecsView/>}/>
         {/* Lines 32-34 Subject to link change when user authentication is added */}
         <Route path='/gamerec/create' element={<GameRecsCreate/>}/>
         <Route path='/gamerec/myrecs' element={<GameRecsMyRec/>}/>

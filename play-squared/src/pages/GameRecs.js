@@ -8,9 +8,9 @@ function GameRecs() {
       <header>
         <h1>Game Recommendation </h1>
         <h4>Do you have ideas for a square game you'd like to see featured 
-          Play²? Simply send a detailed description of your game along with 
+          on Play²? Simply send a detailed description of your game along with 
           a name of your choice and our engineers will discuss adding it to
-          our library of games! Remember, we only used Squares at Play²!
+          our library of games! Remember, we only use Squares at Play²!
         </h4>
       </header>
       <div className='game-recs-container'>

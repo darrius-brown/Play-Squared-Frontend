@@ -1,18 +1,19 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { postGameRecommendation } from '../service/Api';
 
-function GameRecsCreate() {
+function GameRecsCreate({accessToken, userSignedIn}) {
 
   const navigate = useNavigate()
 
   const initialState = {
-    game_name: null,
-    description: null
+    game_name: '',
+    description: '',
+    user_string: userSignedIn ? userSignedIn : "unknown"
   }
 
   const [formState, setFormState] = useState(initialState)
-
   const handleChange = (event) => {
     setFormState(
       {
@@ -24,20 +25,20 @@ function GameRecsCreate() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    console.log(formState.game_name, formState.description)
     postGameRecommendation(formState)
-    navigate('/gamerec/allrecs')
   }
 
   return (
     <div className='gamerecs-form'>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder='Game Name' id='game-name' onChange={handleChange} defaultValue={formState.game_name} />
+        <input type="text" placeholder='Game Name' id='game_name' onChange={handleChange} defaultValue={formState.game_name} />
         <label htmlFor="Game Name">Game Name</label>
       
         <input type="text" placeholder='Description' id='description' onChange={handleChange} defaultValue={formState.description} />
         <label htmlFor="Description">Description</label>
 
-        <button onClick={handleSubmit} className="submit-gamerec" type="submit" >Send your Game Recommendation</button>
+        <button className="submit-gamerec" type="submit" >Send your Game Recommendation</button>
       </form>
     </div>
   )
