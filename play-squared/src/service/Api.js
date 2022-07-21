@@ -19,19 +19,44 @@ export function getGameRecommendations() {
 
 export function postGameRecommendation(content, accessToken) {
   const URL = `http://localhost:8000/gamerecs/create`
+  const headers = { 
+    'Authorization': 'Bearer my-token',
+};
   const {game_name, description} = content 
     return axios.post(URL, {
       game_name: game_name,
       description: description,
-    }),
-    {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      }
-    }
+    }, 
+    {headers})
     .then(res => {
       return res.data
     })  
+}
+
+export function editGameRecommendation(content, id, accessToken,) {
+  const URL = `http://localhost:8000/gamerecs/${id}`
+  console.log()
+//   const headers = { 
+//     'Authorization': 'Bearer my-token',
+// };
+  const {game_name, description} = content 
+    return axios.put(URL, {
+      game_name: game_name,
+      description: description,
+    }, 
+    // {headers},
+    )
+    .then(res => {
+      return res.data
+    })  
+}
+
+export function deleteGameRecommendation(id, accessToken) {
+  const URL = `http://localhost:8000/gamerecs/${id}`
+  return axios.delete(URL, id)
+  .then(res => {
+    return res.data
+  })
 }
 
 export function postSignUp(content) {

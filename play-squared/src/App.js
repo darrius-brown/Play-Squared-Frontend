@@ -13,8 +13,6 @@ import Footer from './header-footer/Footer';
 import GameRecsCreate from './pages/GameRecsCreate';
 import GameRecsMyRec from './pages/GameRecsMyRec';
 import GameRecsAllRecs from './pages/GameRecsAllRecs';
-import GameRecsEdit from './pages/GameRecsEdit';
-import GameRecsView from './pages/GameRecsView';
 import Simon from './games/Simon';
 
 
@@ -33,11 +31,10 @@ function App() {
         <Route path='/leaderboard' element={<Leaderboard/>}/>
         <Route path='/gamerec' element={<GameRecommendation/>}/>
         <Route path='/gamerec/allrecs' element={<GameRecsAllRecs/>}/>
-        <Route path='/gamerec/:_id' element={<GameRecsView/>}/>
+        <Route path='/gamerec/:_id' element={<GameRecsMyRec/>}/>
         {/* Lines 32-34 Subject to link change when user authentication is added */}
         <Route path='/gamerec/create' element={<GameRecsCreate/>}/>
         <Route path='/gamerec/myrecs' element={<GameRecsMyRec/>}/>
-        <Route path='/gamerec/myrecs/edit' element={<GameRecsEdit/>}/>
         <Route path='/about' element={<About/>}/>
       </Routes> 
       <Footer/>

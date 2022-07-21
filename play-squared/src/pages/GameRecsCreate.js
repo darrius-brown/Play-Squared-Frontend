@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { postGameRecommendation } from '../service/Api';
 
 function GameRecsCreate({accessToken, userSignedIn}) {
@@ -25,8 +24,8 @@ function GameRecsCreate({accessToken, userSignedIn}) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(formState.game_name, formState.description)
     postGameRecommendation(formState)
+    navigate('/gamerec/allrecs')
   }
 
   return (
