@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { getGameRecommendations } from '../service/Api'
 
-function GameRecsAllRecs() {
+function GameRecsAllRecs({accessToken}) {
   const [database, setDatabase] = useState([])
   
   function getDatabase() {
-    getGameRecommendations()
+    console.log('accesstoken ' + accessToken)
+    getGameRecommendations(accessToken)
     .then ((data) => {
       console.log(data)
       setDatabase(data)})

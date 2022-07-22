@@ -1,9 +1,12 @@
 import axios from 'axios'
 // import { CREATE_MESSAGE } from ./types
 
-export function getGameRecommendations() {
+export function getGameRecommendations(accessToken) {
     const URL = `http://localhost:8000/gamerecs`
-    return axios.get(URL)
+    const headers = { 
+      'Authorization': `Bearer ${accessToken}`,
+  };
+    return axios.get(URL, {headers},)
     .then(res => {
       return res.data
     })
@@ -33,18 +36,19 @@ export function postGameRecommendation(content, accessToken) {
     })  
 }
 
-export function editGameRecommendation(content, id, accessToken,) {
+export function editGameRecommendation(content, id,) {
   const URL = `http://localhost:8000/gamerecs/${id}`
+  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU4NDU0MDIzLCJpYXQiOjE2NTg0NTM3MjMsImp0aSI6ImVmNDY5NTQ1MDMyMDRjOTg5ZTAzMjdiNzc5ZWNhZmUxIiwidXNlcl9pZCI6MX0.Dz8aUb2k2NfbgzObUmTMNpuJMY4RVV8uR8eiXC1Tz5I'
   console.log()
-//   const headers = { 
-//     'Authorization': 'Bearer my-token',
-// };
+  const headers = { 
+    'Authorization': `Bearer ${accessToken}`,
+};
   const {game_name, description} = content 
     return axios.put(URL, {
       game_name: game_name,
       description: description,
     }, 
-    // {headers},
+    {headers},
     )
     .then(res => {
       return res.data

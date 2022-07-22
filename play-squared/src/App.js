@@ -19,7 +19,7 @@ import Simon from './games/Simon';
 
 
 function App() {
-
+const [Token, setAccessToken] = useState('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU4NDYzOTY5LCJpYXQiOjE2NTg0NjM2NjksImp0aSI6IjJhNzI1ZDM3MGVlNTRmZTI5MTViMjIxYWRlNDg3NmExIiwidXNlcl9pZCI6MX0.3CDnXMqcsMyYS78XIIgXwurmzeLKOSYxOqS8aQdSBPQ')
   return (
     <div>
       <NavBar/>
@@ -30,7 +30,7 @@ function App() {
         <Route path='/simon' element={<Simon/>}/>
         <Route path='/leaderboard' element={<Leaderboard/>}/>
         <Route path='/gamerec' element={<GameRecommendation/>}/>
-        <Route path='/gamerec/allrecs' element={<GameRecsAllRecs/>}/>
+        <Route path='/gamerec/allrecs' element={<GameRecsAllRecs accessToken={Token}/>} />
         <Route path='/gamerec/:_id' element={<GameRecsMyRec/>}/>
         {/* Lines 32-34 Subject to link change when user authentication is added */}
         <Route path='/gamerec/create' element={<GameRecsCreate/>}/>
