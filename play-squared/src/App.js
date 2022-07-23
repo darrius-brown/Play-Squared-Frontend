@@ -31,14 +31,14 @@ function App() {
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/signout' element={<Signout setUserSignedIn={setUserSignedIn} setAccessToken={setAccessToken}/>}/>
         <Route path='/' element={<Home/>}/>
-        <Route path='/simon' element={<Simon/>}/>
-        <Route path='/leaderboard' element={<Leaderboard/>}/>
+        <Route path='/simon' element={<Simon userSignedIn={userSignedIn} accessToken={accessToken}/>}/>
+        <Route path='/leaderboard' element={<Leaderboard userSignedIn={userSignedIn} accessToken={accessToken}/>}/>
         <Route path='/gamerec' element={<GameRecommendation/>}/>
         <Route path='/gamerec/allrecs' element={<GameRecsAllRecs userSignedIn={userSignedIn} accessToken={accessToken}/>} />
         <Route path='/gamerec/:_id' element={<GameRecsMyRec userSignedIn={userSignedIn} accessToken={accessToken}/>}/>
         {/* Lines 32-34 Subject to link change when user authentication is added */}
-        <Route path='/gamerec/create' element={<GameRecsCreate/>}/>
-        <Route path='/gamerec/myrecs' element={<GameRecsMyRec/>}/>
+        <Route path='/gamerec/create' element={<GameRecsCreate userSignedIn={userSignedIn} accessToken={accessToken}/>}/>
+        <Route path='/gamerec/myrecs' element={<GameRecsMyRec userSignedIn={userSignedIn} accessToken={accessToken}/>}/>
         <Route path='/about' element={<About/>}/>
       </Routes> 
       <Footer/>

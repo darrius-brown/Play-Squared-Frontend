@@ -7,19 +7,20 @@ import { useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function GameRecsMyRec({accessToken}) {
+function GameRecsMyRec({ accessToken, userSignedIn }) {
   let { _id } = useParams()
   const navigate = useNavigate()
   const [database, setDatabase] = useState([])
   const [formState, setFormState] = useState([])
 
   function getDatabase() {
-    getGameRecommendationsByID(_id)
+    getGameRecommendationsByID(_id, accessToken)
       .then((data) => {
         setDatabase(data)
         setFormState({
           game_name: data.game_name,
           description: data.description,
+          user_string: userSignedIn ? userSignedIn : "unknown"
         })
       })
   }
@@ -66,7 +67,7 @@ function GameRecsMyRec({accessToken}) {
           <Form.Label>Description</Form.Label>
         </Form.Group>
 
-        <Button variant="success" className="submit-gamerec" type="submit" >Send your Game Recommendation</Button>
+        <Button variant="success" className="submit-gamerec" type="submit" >Complete Edit</Button>
 
       </Form>
       <Button className = 'delete-button'variant="danger" onClick={() => { deleteGameRecommendation(_id, accessToken); navigate('/gamerec/allrecs') }}> Delete Game Recommendation</Button>

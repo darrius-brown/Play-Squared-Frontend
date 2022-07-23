@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { getGameRecommendations } from '../service/Api'
 import Card from 'react-bootstrap/Card';
 
-function GameRecsAllRecs({ accessToken }) {
+function GameRecsAllRecs({ accessToken, userSignedIn }) {
   const [database, setDatabase] = useState([])
 
   function getDatabase() {
@@ -27,10 +27,6 @@ function GameRecsAllRecs({ accessToken }) {
   const renderGameRecs = () => {
     return database.map((gameRec, index) => {
       return (
-        // 
-        //   {gameRec.game_name}
-        //   <p>{gameRec.description}</p>
-        // 
         <div className='game-rec' key={index}>
           <Link to={`/gamerec/${gameRec.pk}`} className='game-rec-title'>
             <Card>

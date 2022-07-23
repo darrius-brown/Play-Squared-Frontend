@@ -64,10 +64,9 @@ function SignIn({setUserSignedIn, setAccessToken}) {
                     console.log(`problem with network request: ${networkErrMsg}`)
                 } else {
                     
-                    console.log(data)
+                    console.log('data' + data)
 
                     setUserSignedIn(formState.username)
-
                     setAccessToken(data.access)
                     // add tokens to localstorage here
 

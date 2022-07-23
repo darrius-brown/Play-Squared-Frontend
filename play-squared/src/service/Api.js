@@ -12,9 +12,13 @@ export function getGameRecommendations(accessToken) {
     })
   }
 
-  export function getGameRecommendationsByID(id) {
+  export function getGameRecommendationsByID(id, accessToken) {
     const URL = `http://localhost:8000/gamerecs/${id}`
-    return axios.get(URL)
+    const headers = { 
+      'Authorization': `Bearer ${accessToken}`,
+  }
+    return axios.get(URL, 
+      {headers})
     .then(res => {
       return res.data
     })
@@ -42,7 +46,7 @@ export function editGameRecommendation(content, id, accessToken) {
     'Authorization': `Bearer ${accessToken}`,
 };
   const {game_name, description} = content 
-    return axios.put(URL, {headers}, {
+    return axios.put(URL, {
       game_name: game_name,
       description: description,
     }, 
@@ -62,4 +66,28 @@ export function deleteGameRecommendation(id, accessToken) {
   .then(res => {
     return res.data
   })
+}
+export function getScore(accessToken) {
+  const URL = `http://localhost:8000/leaderboard`
+  const headers = { 
+    'Authorization': `Bearer ${accessToken}`,
+};
+  return axios.get(URL, {headers},)
+  .then(res => {
+    return res.data
+  })
+}
+export function postScore(content, accessToken) {
+  const URL = `http://localhost:8000/leaderboard`
+  const headers = { 
+    'Authorization': `Bearer ${accessToken}`,
+}
+  const {amount} = content 
+    return axios.post(URL, {
+      amount: amount,
+    }, 
+    {headers})
+    .then(res => {
+      return res.data
+    })  
 }
