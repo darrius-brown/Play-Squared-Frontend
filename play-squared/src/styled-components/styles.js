@@ -18,3 +18,28 @@ export function CreateVariables(boardSize){
 
 
 
+export const CardImage = styled.button`
+  ${props => props.simon && css`
+  background: red;
+  height: 200;
+  width: 200;
+  `}
+  ${props => props.create && css`
+  background: yellow;
+  height: 200;
+  width: 200;
+  `}
+  ${props => props.personal && css`
+  background: purple;
+  height: 200;
+  width: 200;
+  `}
+  ${props => props.all && css`
+  background: blue;
+  height: 200;
+  width: 200;
+  `}
+`;
+
+
+

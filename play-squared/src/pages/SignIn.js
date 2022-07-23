@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 function SignIn({setUserSignedIn, setAccessToken}) {
-    
+    const navigate = useNavigate()
     const loginEndpoint = 'api/token/'
 
-    const [formInfo, setFromInfo] = useState({username:'', password:''})
+    const [formState, setFormState] = useState({username:'', password:''})
     const [networkErrMsg, setNetworkErrMsg] = useState(null)
     const [clientErrMsg, setClientErrMsg] = useState(null)
 
@@ -12,8 +15,8 @@ function SignIn({setUserSignedIn, setAccessToken}) {
         setNetworkErrMsg(`Network Error of code: ${responseObj.status}`)
     }
 
-    const clientFormValidation = (formInfo) => {
-        const blankFields = Object.entries(formInfo)
+    const clientFormValidation = (formState) => {
+        const blankFields = Object.entries(formState)
                                   .filter(kv => kv[1] === '')
         if (blankFields.length > 0) {
             setClientErrMsg(`${blankFields[0][0]} can not be blank`)
@@ -24,21 +27,20 @@ function SignIn({setUserSignedIn, setAccessToken}) {
     }
 
     const handleChange = (e) => {
-        setFromInfo({...formInfo, [e.target.id]: e.target.value})
+        setFormState({...formState, [e.target.id]: e.target.value})
     }
   
-    const handleLogin = (e) => {
-        
-        // console.log(formInfo)
+    const handleSubmit = (e) => {
         e.preventDefault()
 
         setNetworkErrMsg(null)
+        navigate('/')
 
-        if (!clientFormValidation(formInfo)) {
+        if (!clientFormValidation(formState)) {
             return
         }
         
-        const apiUrl = process.env.REACT_APP_API_URL
+        const apiUrl = 'http://localhost:8000/'
         
         fetch( apiUrl + loginEndpoint, 
                 {
@@ -46,7 +48,7 @@ function SignIn({setUserSignedIn, setAccessToken}) {
                     headers: {
                         'Content-Type':'application/json',
                     },
-                    body: JSON.stringify(formInfo)
+                    body: JSON.stringify(formState)
                 }
         )
             .then(res => {
@@ -64,13 +66,13 @@ function SignIn({setUserSignedIn, setAccessToken}) {
                     
                     console.log(data)
 
-                    setUserSignedIn("fake_user")
+                    setUserSignedIn(formState.username)
 
                     setAccessToken(data.access)
                     // add tokens to localstorage here
 
                     localStorage.setItem('access_token', data.access)
-                    localStorage.setItem('user', 'fake_user')
+                    localStorage.setItem('user', formState.username)
                     // redirect here
                 }
             })
@@ -79,17 +81,23 @@ function SignIn({setUserSignedIn, setAccessToken}) {
     return (
     <div>
       <h3>Login</h3>
-        <form onSubmit={handleLogin}>
-            <label>username:</label>
-            <input id="username" name="username" type="text" onChange={handleChange}/>
-            <label>password:</label>
-            <input id="password" name="username" type="text" onChange={handleChange}/>
-            <button type="submit">Login</button>
-        </form>
+      <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicUsername">
+      <Form.Label>Username:</Form.Label>
+      <Form.Control id="username" name="username" type="text" onChange={handleChange}/>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control id="password" name="username" type="text" onChange={handleChange}/>
+            </Form.Group>
+            <Button variant="success" className="submit-gamerec" type="submit" >Login</Button>
+            </Form> 
+            
         <p>{networkErrMsg}</p>
         <p>{clientErrMsg}</p>
+        
     </div>
     );
 }
 
-export default Login;
+export default SignIn;

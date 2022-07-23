@@ -3,9 +3,11 @@ import { getGameRecommendationsByID } from '../service/Api'
 import { useParams } from 'react-router-dom'
 import { editGameRecommendation } from '../service/Api'
 import { deleteGameRecommendation } from '../service/Api'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
-function GameRecsMyRec() {
+function GameRecsMyRec({accessToken}) {
   let { _id } = useParams()
   const navigate = useNavigate()
   const [database, setDatabase] = useState([])
@@ -13,14 +15,13 @@ function GameRecsMyRec() {
 
   function getDatabase() {
     getGameRecommendationsByID(_id)
-    .then ((data) => {
-      console.log(data)
-      setDatabase(data)
-      setFormState({
-        game_name: data.game_name,
-        description: data.description,
+      .then((data) => {
+        setDatabase(data)
+        setFormState({
+          game_name: data.game_name,
+          description: data.description,
+        })
       })
-  })
   }
   useEffect(() => {
     getDatabase()
@@ -43,27 +44,35 @@ function GameRecsMyRec() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    editGameRecommendation(formState, _id)
+    console.log("hi " + accessToken)
+    editGameRecommendation(formState, _id, accessToken)
     navigate('/gamerec/allrecs')
   }
   return (
-    <div className = 'game-rec'>
+
+    <div className='gamerecs-form'>
       <div className='game-rec-content'>
         <h1>{database.game_name}</h1>
-        <p>{database.description}</p>
+        <h5>Edit your Game Recommendation here!</h5>
       </div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder='Game Name' id='game_name' onChange={handleChange} defaultValue={formState.game_name} />
-        <label htmlFor="Game Name">Game Name</label>
-      
-        <input type="text" placeholder='Description' id='description' onChange={handleChange} defaultValue={formState.description} />
-        <label htmlFor="Description">Description</label>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicTitle">
+          <Form.Control type="text" placeholder='Game Name' id='game_name' onChange={handleChange} defaultValue={formState.game_name} />
+          <Form.Label>Game Name</Form.Label>
+        </Form.Group>
 
-        <button className="submit-gamerec" type="submit" >Send your Game Recommendation</button>
-      </form>
-      <button onClick={() => {deleteGameRecommendation(_id); navigate('/gamerec/allrecs')}}> Delete Game Recommendation</button>
+        <Form.Group className="mb-3" controlId="formBasicTitle">
+          <Form.Control type="text" placeholder='Description' id='description' onChange={handleChange} defaultValue={formState.description} />
+          <Form.Label>Description</Form.Label>
+        </Form.Group>
+
+        <Button variant="success" className="submit-gamerec" type="submit" >Send your Game Recommendation</Button>
+
+      </Form>
+      <Button className = 'delete-button'variant="danger" onClick={() => { deleteGameRecommendation(_id, accessToken); navigate('/gamerec/allrecs') }}> Delete Game Recommendation</Button>
     </div>
   )
+
 }
 
 export default GameRecsMyRec

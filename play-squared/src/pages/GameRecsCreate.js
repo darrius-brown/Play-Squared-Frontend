@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { postGameRecommendation } from '../service/Api';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-function GameRecsCreate({accessToken, userSignedIn}) {
+function GameRecsCreate({ accessToken, userSignedIn }) {
 
   const navigate = useNavigate()
 
@@ -24,21 +26,31 @@ function GameRecsCreate({accessToken, userSignedIn}) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    postGameRecommendation(formState)
+    postGameRecommendation(formState, accessToken)
+    // .catch(err => {
+    //   console.log(err)
+    //   navigate('/signout')
+    // }
+    // )
     navigate('/gamerec/allrecs')
   }
 
   return (
     <div className='gamerecs-form'>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder='Game Name' id='game_name' onChange={handleChange} defaultValue={formState.game_name} />
-        <label htmlFor="Game Name">Game Name</label>
-      
-        <input type="text" placeholder='Description' id='description' onChange={handleChange} defaultValue={formState.description} />
-        <label htmlFor="Description">Description</label>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicTitle">
+          <Form.Control type="text" placeholder='Game Name' id='game_name' onChange={handleChange} defaultValue={formState.game_name} />
+          <Form.Label>Game Name</Form.Label>
+        </Form.Group>
 
-        <button className="submit-gamerec" type="submit" >Send your Game Recommendation</button>
-      </form>
+        <Form.Group className="mb-3" controlId="formBasicTitle">
+          <Form.Control type="text" placeholder='Description' id='description' onChange={handleChange} defaultValue={formState.description} />
+          <Form.Label>Description</Form.Label>
+        </Form.Group>
+
+        <Button variant="success" className="submit-gamerec" type="submit" >Send your Game Recommendation</Button>
+        
+      </Form>
     </div>
   )
 }

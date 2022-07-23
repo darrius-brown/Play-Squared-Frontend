@@ -1,11 +1,10 @@
 import './App.css';
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import { Routes, Route } from 'react-router-dom';
 import About from './pages/About';
 import GameRecommendation from './pages/GameRecs';
 import Home from './pages/Home';
 import Leaderboard from './pages/Leaderboard';
-import Play from './pages/Play';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import NavBar from './header-footer/NavBar';
@@ -14,24 +13,29 @@ import GameRecsCreate from './pages/GameRecsCreate';
 import GameRecsMyRec from './pages/GameRecsMyRec';
 import GameRecsAllRecs from './pages/GameRecsAllRecs';
 import Simon from './games/Simon';
+import Signout from './service/Signout';
+
 
 
 
 
 function App() {
-const [Token, setAccessToken] = useState('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU4NDYzOTY5LCJpYXQiOjE2NTg0NjM2NjksImp0aSI6IjJhNzI1ZDM3MGVlNTRmZTI5MTViMjIxYWRlNDg3NmExIiwidXNlcl9pZCI6MX0.3CDnXMqcsMyYS78XIIgXwurmzeLKOSYxOqS8aQdSBPQ')
+  const [userSignedIn, setUserSignedIn] = useState(localStorage.getItem('user'))
+
+  const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'))
   return (
-    <div>
+    <div className = 'app'>
       <NavBar/>
       <Routes>
-        <Route path='/signin' element={<SignIn/>}/>
+        <Route path='/signin' element={<SignIn setUserSignedIn={setUserSignedIn} setAccessToken={setAccessToken}/>}/>
         <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/signout' element={<Signout setUserSignedIn={setUserSignedIn} setAccessToken={setAccessToken}/>}/>
         <Route path='/' element={<Home/>}/>
         <Route path='/simon' element={<Simon/>}/>
         <Route path='/leaderboard' element={<Leaderboard/>}/>
         <Route path='/gamerec' element={<GameRecommendation/>}/>
-        <Route path='/gamerec/allrecs' element={<GameRecsAllRecs accessToken={Token}/>} />
-        <Route path='/gamerec/:_id' element={<GameRecsMyRec/>}/>
+        <Route path='/gamerec/allrecs' element={<GameRecsAllRecs userSignedIn={userSignedIn} accessToken={accessToken}/>} />
+        <Route path='/gamerec/:_id' element={<GameRecsMyRec userSignedIn={userSignedIn} accessToken={accessToken}/>}/>
         {/* Lines 32-34 Subject to link change when user authentication is added */}
         <Route path='/gamerec/create' element={<GameRecsCreate/>}/>
         <Route path='/gamerec/myrecs' element={<GameRecsMyRec/>}/>
