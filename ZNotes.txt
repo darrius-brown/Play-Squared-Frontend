@@ -54,10 +54,12 @@ to create the leaderboard
     
 Next Steps
 Simon is complete so.....
-Currently Working Once this is set up, we need full CRUD
+ Once this is set up, we need full CRUD
 How to i set headers in axios?
 
-We need to set up user authentication
+Currently Working We need to set up user authentication
+accessToken either on all components or axios interceptor 
+GRAB WILLS LOGIN PAGE
 
 How to communicate with backend (Maybe chat with david) (Look at P3)
 Once full crud is done, style
