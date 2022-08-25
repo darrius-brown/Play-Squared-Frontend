@@ -26,9 +26,10 @@ function Leaderboard({ accessToken, userSignedIn }) {
   }
   const renderSimonScores = () => {
     return database.map((score, index) => {
-      // if(score.game === 'Simon')
       return (
-        <ListGroup.Item className='simon-score' key={index}>{score.amount}</ListGroup.Item>
+      <>
+        <ListGroup.Item className='simon-score' key={index}>Score: {score.amount}  {score.board == 9 ? '3x3' : score.board == 16 ? '4x4' : '5x5'} {score.author.username} </ListGroup.Item>
+      </>
       )
     })
   }
@@ -36,10 +37,10 @@ function Leaderboard({ accessToken, userSignedIn }) {
   return (
     <div className='all-recs-container'>
       <header>
-        <h1>All Recommendations</h1>
+        <h1>Leaderboard</h1>
       </header>
       <Card className = 'simon-leaderboard'style={{ width: '18rem' }}>
-        <Card.Header>Simon Leaderboard</Card.Header>
+        <Card.Header>Simon 3x3</Card.Header>
         <ListGroup variant="flush">
           {renderSimonScores()}
         </ListGroup>

@@ -6,11 +6,11 @@ import {Howl, Howler} from 'howler'
 import { postScore } from '../service/Api'
 function Simon({ accessToken, userSignedIn }) {
 
-    const initialState = {
-        amount: null,
-        user_string: userSignedIn ? userSignedIn : "unknown"
-      }
-    const [leaderboardScore, setLeaderboard] = useState(initialState)
+    // const initialState = {
+    //     amount: null,
+    //     user_string: userSignedIn ? userSignedIn : "unknown"
+    //   }
+    // const [leaderboardScore, setLeaderboard] = useState(initialState)
     const [squareState, setSquareState] = useState(null)
     const [boardState, setBoardState] = useState(9)
     const newSquare = Math.floor(Math.random() * boardState)
@@ -49,15 +49,13 @@ function Simon({ accessToken, userSignedIn }) {
                 startGame(newArray)
             }
         } else {
+            postScore({
+                game: 'Simon',
+                amount: scoreState,
+                board: boardState}, 
+                accessToken)
             alert(`You scored ${scoreState}! Try again!`)
-            //Push the score into the database
             let newGameSquare = newSquare
-            // setLeaderboard(
-            //     {
-            //         ...leaderboardScore,
-            //         amount: scoreState
-            //       })
-            postScore(scoreState, accessToken)
             setSquareStateHistory([newGameSquare])
             setSolutionState([newGameSquare])
             setHiddenState(false)

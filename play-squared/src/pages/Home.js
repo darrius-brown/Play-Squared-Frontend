@@ -6,17 +6,6 @@ import { CardImage } from '../styled-components/styles';
 
 function Home() {
   return (
-    // <div className='home'>
-    //   <header>
-    //     <h1>Play²</h1>
-    //   </header>
-    //   <div className='games-container'>
-    //     <div className='game'>
-    //       Game Image
-    //       <Link to='simon'>Create</Link>
-    //     </div>
-    //   </div>
-    // </div>
     <div className='home'>
       <Card style={{ width: '10rem' }}>
       <CardImage simon></CardImage> 

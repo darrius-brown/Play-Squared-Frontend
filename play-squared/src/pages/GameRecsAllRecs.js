@@ -30,14 +30,14 @@ function GameRecsAllRecs({ accessToken, userSignedIn }) {
         <div className='game-rec' key={index}>
           <Link to={`/gamerec/${gameRec.pk}`} className='game-rec-title'>
             <Card>
-              <Card.Header>Game Name: {gameRec.game_name}</Card.Header>
+              <Card.Header>{gameRec.game_name}</Card.Header>
               <Card.Body>
                 <blockquote className="blockquote mb-0">
                   <p>
                     {gameRec.description}
                   </p>
                   <footer className="blockquote-footer">
-                    Username
+                  {gameRec.author.username}
                   </footer>
                 </blockquote>
               </Card.Body>

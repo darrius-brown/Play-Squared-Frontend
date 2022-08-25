@@ -27,11 +27,6 @@ function GameRecsCreate({ accessToken, userSignedIn }) {
   const handleSubmit = (event) => {
     event.preventDefault()
     postGameRecommendation(formState, accessToken)
-    // .catch(err => {
-    //   console.log(err)
-    //   navigate('/signout')
-    // }
-    // )
     navigate('/gamerec/allrecs')
   }
 

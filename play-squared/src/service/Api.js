@@ -25,7 +25,7 @@ export function getGameRecommendations(accessToken) {
   }
 
 export function postGameRecommendation(content, accessToken) {
-  const URL = `http://localhost:8000/gamerecs/create`
+  const URL = `http://localhost:8000/gamerecs/`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 }
@@ -33,6 +33,23 @@ export function postGameRecommendation(content, accessToken) {
     return axios.post(URL, {
       game_name: game_name,
       description: description,
+    }, 
+    {headers})
+    .then(res => {
+      return res.data
+    })  
+}
+
+export function postScore(content, accessToken) {
+  const URL = `http://localhost:8000/leaderboard/`
+  const headers = { 
+    'Authorization': `Bearer ${accessToken}`,
+}
+  const {amount, board} = content 
+    return axios.post(URL, {
+      game: 'Simon',
+      amount: amount,
+      board: board,
     }, 
     {headers})
     .then(res => {
@@ -58,7 +75,7 @@ export function editGameRecommendation(content, id, accessToken) {
 }
 
 export function deleteGameRecommendation(id, accessToken) {
-  const URL = `http://localhost:8000/gamerecs/${id}`
+  const URL = `http://localhost:8000/gamerecs/${id}/`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 }
@@ -76,18 +93,4 @@ export function getScore(accessToken) {
   .then(res => {
     return res.data
   })
-}
-export function postScore(content, accessToken) {
-  const URL = `http://localhost:8000/leaderboard`
-  const headers = { 
-    'Authorization': `Bearer ${accessToken}`,
-}
-  const {amount} = content 
-    return axios.post(URL, {
-      amount: amount,
-    }, 
-    {headers})
-    .then(res => {
-      return res.data
-    })  
 }
