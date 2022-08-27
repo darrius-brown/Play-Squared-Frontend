@@ -17,6 +17,7 @@ function Leaderboard({ accessToken, userSignedIn }) {
 
   useEffect(() => {
     getDatabase()
+    console.log(userSignedIn)
   }, [])
 
   if (database.length <= 0) {

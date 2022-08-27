@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CreateVariables } from '../styled-components/styles'
 import Button from 'react-bootstrap/Button'
 import audio from '../sounds/1.mp3'
@@ -6,10 +6,9 @@ import {Howl, Howler} from 'howler'
 import { postScore } from '../service/Api'
 function Simon({ accessToken, userSignedIn }) {
 
-    // const initialState = {
-    //     amount: null,
-    //     user_string: userSignedIn ? userSignedIn : "unknown"
-    //   }
+    const initialState = {
+        user_string: userSignedIn ? userSignedIn : "unknown"
+      }
     // const [leaderboardScore, setLeaderboard] = useState(initialState)
     const [squareState, setSquareState] = useState(null)
     const [boardState, setBoardState] = useState(9)
@@ -17,11 +16,13 @@ function Simon({ accessToken, userSignedIn }) {
     const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
     const [solutionState, setSolutionState] = useState(squareStateHistory)
     const [hiddenState, setHiddenState] = useState(false)
-    const [scoreState, setScoreState] = useState(0)
+    const [scoreState, setScoreState] = useState(111)
     const [canClick, setCanClick] = useState(false)
     const audioClip = {sound: audio, label: 'audio'}
     
-
+    useEffect(() => {
+        console.log(userSignedIn)
+      }, [])
     const soundPlay = (src) => {
         const sound = new Howl({
             src
@@ -52,7 +53,8 @@ function Simon({ accessToken, userSignedIn }) {
             postScore({
                 game: 'Simon',
                 amount: scoreState,
-                board: boardState}, 
+                board: boardState,
+                author: initialState.user_string}, 
                 accessToken)
             alert(`You scored ${scoreState}! Try again!`)
             let newGameSquare = newSquare
