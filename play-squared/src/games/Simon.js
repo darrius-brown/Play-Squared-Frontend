@@ -3,26 +3,22 @@ import { CreateVariables } from '../styled-components/styles'
 import Button from 'react-bootstrap/Button'
 import audio from '../sounds/1.mp3'
 import {Howl, Howler} from 'howler'
-import { postScore } from '../service/Api'
+import { postScore } from '../api/Api'
 function Simon({ accessToken, userSignedIn }) {
 
     const initialState = {
         user_string: userSignedIn ? userSignedIn : "unknown"
       }
-    // const [leaderboardScore, setLeaderboard] = useState(initialState)
     const [squareState, setSquareState] = useState(null)
     const [boardState, setBoardState] = useState(9)
     const newSquare = Math.floor(Math.random() * boardState)
     const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
     const [solutionState, setSolutionState] = useState(squareStateHistory)
     const [hiddenState, setHiddenState] = useState(false)
-    const [scoreState, setScoreState] = useState(111)
+    const [scoreState, setScoreState] = useState(0)
     const [canClick, setCanClick] = useState(false)
     const audioClip = {sound: audio, label: 'audio'}
     
-    useEffect(() => {
-        console.log(userSignedIn)
-      }, [])
     const soundPlay = (src) => {
         const sound = new Howl({
             src
@@ -117,5 +113,3 @@ function Simon({ accessToken, userSignedIn }) {
 }
 
 export default Simon
-
-//execute a func that goes through new array (for loop)
