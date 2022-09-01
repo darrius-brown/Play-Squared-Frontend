@@ -5,11 +5,23 @@ export function CreateVariables(boardSize){
       squares[i] = styled.div`
       background-color: rgba(212, 209, 209, 0.8);
       border-radius: 2px;
-      padding: 10px;
       cursor: pointer;
+      padding: 30px;
+      font-weight: bold;
+      font-size: 22px;
  
         ${props => props.simon && css`
         background: red;
+            `}
+        ${props => props.squaresInt && css`
+        background: pink;
+        
+            `}
+        ${props => props.squaresSquare && css`
+        background: purple;
+            `}
+        ${props => props.squaresSelected && css`
+        background: yellow;
             `}
       `
   }
@@ -21,6 +33,11 @@ export function CreateVariables(boardSize){
 export const CardImage = styled.button`
   ${props => props.simon && css`
   background: red;
+  height: 200;
+  width: 200;
+  `}
+  ${props => props.squares && css`
+  background: blue;
   height: 200;
   width: 200;
   `}

@@ -19,6 +19,19 @@ function Home() {
           </Link>
         </Card.Body>
       </Card>
+
+      <Card style={{ width: '10rem' }}>
+      <CardImage squares></CardImage> 
+        <Card.Body>
+          <Card.Title>Squares²</Card.Title>
+          <Card.Text>
+            Match the number to their relative squares.
+          </Card.Text>
+          <Link to='squares'>
+          <Button variant="primary">Play Squares²</Button>
+          </Link>
+        </Card.Body>
+      </Card>
      </div>
     
   )

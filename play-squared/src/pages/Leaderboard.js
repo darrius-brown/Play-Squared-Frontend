@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getScore } from '../service/Api'
+import { getScore } from '../api/Api'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 

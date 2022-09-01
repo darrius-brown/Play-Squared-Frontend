@@ -15,9 +15,13 @@ function Simon({ accessToken, userSignedIn }) {
     const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
     const [solutionState, setSolutionState] = useState(squareStateHistory)
     const [hiddenState, setHiddenState] = useState(false)
-    const [scoreState, setScoreState] = useState(0)
+    const [scoreState, setScoreState] = useState(200)
     const [canClick, setCanClick] = useState(false)
     const audioClip = {sound: audio, label: 'audio'}
+
+    useEffect(() => {
+        console.log(userSignedIn)
+      }, [])
     
     const soundPlay = (src) => {
         const sound = new Howl({
@@ -50,7 +54,7 @@ function Simon({ accessToken, userSignedIn }) {
                 game: 'Simon',
                 amount: scoreState,
                 board: boardState,
-                author: initialState.user_string}, 
+                author: 'testing'}, 
                 accessToken)
             alert(`You scored ${scoreState}! Try again!`)
             let newGameSquare = newSquare
@@ -93,7 +97,7 @@ function Simon({ accessToken, userSignedIn }) {
     const hideButton = () => {
         setHiddenState(true)
     }
-
+    
     return (
         <div className='simon-game'>
             <h3 className={hiddenState === true ? 'hidden' : ''} >Choose your board size below!</h3>

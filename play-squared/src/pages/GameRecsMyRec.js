@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { getGameRecommendationsByID } from '../service/Api'
+import { getGameRecommendationsByID } from '../api/Api'
 import { useParams } from 'react-router-dom'
-import { editGameRecommendation } from '../service/Api'
-import { deleteGameRecommendation } from '../service/Api'
+import { editGameRecommendation } from '../api/Api'
+import { deleteGameRecommendation } from '../api/Api'
 import { useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';

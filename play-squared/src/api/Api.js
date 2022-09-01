@@ -49,7 +49,7 @@ export function postScore(content, accessToken) {
       game: 'Simon',
       amount: amount,
       board: board,
-      author: author,
+      author: author.username,
     }, 
     {headers})
     .then(res => {

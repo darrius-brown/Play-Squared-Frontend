@@ -3,41 +3,11 @@ import { CreateVariables } from '../styled-components/styles'
 import audio from '../sounds/1.mp3'
 import {Howl, Howler} from 'howler'
 import Button from 'react-bootstrap/Button'
+import { postScore } from '../api/Api'
+
 
 
 function Squares({ accessToken, userSignedIn }) {
-    const gameNumbers = {
-        1: 2,
-        2: 4,
-        3: 9,
-        4: 16,
-        5: 25,
-        6: 36,
-        7: 49,
-        8: 64, 
-        9: 81, 
-        10: 100,
-        11: 121,
-        12: 144,
-        13: 169,
-        14: 196,
-        15: 225,
-        16: 256,
-        17: 289,
-        18: 324,
-        19: 361,
-        20: 400,
-        21: 441,
-        22: 484,
-        23: 529,
-        24: 576,
-        25: 625,
-        26: 676,
-        27: 729,
-        28: 784,
-        29: 841,
-        30: 900
-    }
     const soundPlay = (src) => {
         const sound = new Howl({
             src
@@ -48,13 +18,18 @@ function Squares({ accessToken, userSignedIn }) {
     const initialState = {
         user_string: userSignedIn ? userSignedIn : "unknown"
       }
-    let indexesInPlay = []
-    let test = [1]
+    const [secondsState, setSecondsState] = useState('60')
+    // const [tensState, setTensState] = useState('00')
     const [boardState, setBoardState] = useState(9)
-    const [numbersState, setNumbersState] = useState([])
-    const [scoreState, setScoreState] = useState(0)
     const [hiddenState, setHiddenState] = useState(false)
-    const [squareState, setSquareState] = useState(null)
+    const [selectedState, setSelectedState] = useState([])
+    const [gameNumbers, setGameNumbers] = useState([])
+    const [solutionNumbers, setSolutionNumbers] = useState([])
+    const [solvedState, setSolvedState] = useState([])
+    const halfBoard = Math.floor(boardState / 2)
+    let tens = 0
+    let seconds = 60
+    let interval
 
     const audioClip = {sound: audio, label: 'audio'}
     const changeBoard = (gridValue) => {
@@ -62,35 +37,112 @@ function Squares({ accessToken, userSignedIn }) {
             gridValue
         )
     }
+    
+        
+    const startTime  = () => {
+        if(seconds === 0) {
+            clearInterval(interval)
+        }
+        tens++
+        // if(tensState <= 9) {
+        // setTensState('0' + tens)
+        // } 
+
+        // if(tens > 9) {
+        // setTensState(tens)
+        // }
+
+        if(tens > 99) {
+        seconds--
+        setSecondsState('0' + seconds)
+        tens = 0
+        // setTensState('0' + tens)
+        }
+
+        if(seconds > 9) {
+            setSecondsState(seconds)
+        }
+    }
+    
     const hideButton = () => {
         setHiddenState(true)
     }
 
     const squareClicked = (squareClicked) => {
+        const newArray = [...selectedState, parseInt(squareClicked)] 
+        setSelectedState(newArray) 
+        if(selectedState.length === 1) {
+            if((gameNumbers[selectedState[0]] * gameNumbers[selectedState[0]])  === solutionNumbers[squareClicked - halfBoard]){
+                const solutionArray = [...solvedState, selectedState[0], parseInt(squareClicked)]
+                setSolvedState(solutionArray)
+                soundPlay(audioClip.sound)
+            }
 
+            if((solutionNumbers[selectedState[0] - halfBoard] / gameNumbers[squareClicked])  === gameNumbers[squareClicked]){
+                const solutionArray = [...solvedState, selectedState[0], parseInt(squareClicked)]
+                setSolvedState(solutionArray)
+                soundPlay(audioClip.sound)
+            }
+            console.log(solvedState.length)
+            setSelectedState([])
+            if(solvedState.length >= boardState - 3){
+                postScore({
+                    game: 'Squares',
+                    amount: secondsState,
+                    board: boardState,
+                    author: 'testing'}, 
+                    accessToken)
+                alert(`You scored ${secondsState}! Try again!`)
+                setHiddenState(false)
+                setGameNumbers([])
+                setSolutionNumbers([])
+                setSolvedState([])
+                clearInterval(interval)
+                setSecondsState('60')
+                seconds = 60
+                tens = 0
+            }
+        }
     }
 
+    function shuffle(array) {
+        let currentIndex = array.length,  randomIndex;
+        while (currentIndex != 0) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+      
+        return array;
+      }
     const startGame = async () => {
+        clearInterval(interval)
+        interval = setInterval(startTime, 10)
         let needNewNumber = false
-        for (let i = 0; i < Math.floor(boardState / 2); i++) {
-        let indexInPlay = Math.floor(Math.random() * 30)
-        if(indexesInPlay.includes(indexInPlay)) {
+        let numbersInPlay = []
+        let numbersInPlaySquared = []
+        for (let i = 0; i < halfBoard; i++) {
+        let indexInPlay = Math.floor(Math.random() * (30) + 1)
+        if(numbersInPlay.includes(indexInPlay)) {
             needNewNumber = true
         } else {
-            indexesInPlay.push(indexInPlay)
+            numbersInPlay.push(indexInPlay)
+            numbersInPlaySquared.push(indexInPlay * indexInPlay)
         }
         while (needNewNumber) {
-            let newNumber = Math.Floor(Math.random() * Math.random() * 30  )
-            if(!indexesInPlay.includes(newNumber)) {
+            let newNumber = Math.floor(Math.random() * (30) + 1)
+            if(!numbersInPlay.includes(newNumber)) {
                 needNewNumber = false
-                indexesInPlay.push(newNumber)
+                numbersInPlay.push(newNumber)
+                numbersInPlaySquared.push(newNumber * newNumber)
             }
         }
         }
-        console.log(4)
-        console.log(gameNumbers[indexesInPlay[1]])
-        console.log(gameNumbers[indexesInPlay[2]])
-        console.log(gameNumbers[indexesInPlay[3]])
+        let shuffledArray = shuffle(numbersInPlaySquared)
+        setGameNumbers(numbersInPlay)
+        setSolutionNumbers(shuffledArray)
     }
     
   return (
@@ -102,10 +154,20 @@ function Squares({ accessToken, userSignedIn }) {
                 <Button className='board-size-button' onClick={() => changeBoard(25)}>25</Button>
             </div>
             <div className={boardState === 9 ? 'small-board' : boardState === 16 ? 'medium-board' : boardState === 25 ? 'large-board' : 'medium-board'}>
-                {CreateVariables(boardState).map((Item, index) => (index < Math.floor(boardState / 2) ? <Item id={index} squaresInt > {numbersState[index]}</Item> : <Item squaresSquare id={index} onClick={e => squareClicked(e.target.id)} > a</Item>)
+                {CreateVariables(boardState).map((Item, index) => (
+                    index < halfBoard ? 
+                    selectedState.includes(index) ?
+                    <Item  squaresSelected id={index} onClick={e => squareClicked(e.target.id)}  className = {solvedState.includes(index) ? 'hidden' : ''}> {gameNumbers[index]}</Item>:
+                    <Item  squaresInt id={index} onClick={e => squareClicked(e.target.id)}  className = {solvedState.includes(index) ? 'hidden' : ''}> {gameNumbers[index]}</Item>:
+                    selectedState.includes(index) ?
+                    <Item squaresSelected id={index} onClick={e => squareClicked(e.target.id)} className = {solvedState.includes(index) ? 'hidden' : ''}> {solutionNumbers[index - halfBoard]}</Item> :
+                    <Item squaresSquare id={index} onClick={e => squareClicked(e.target.id)} className = {(solvedState.includes(index) || boardState % 2 !== 0 && index === boardState - 1)  ? 'hidden' : ''}> {solutionNumbers[index - halfBoard]}</Item>
+                    )
                 )}
             </div>
-            <h3>Score: {scoreState}</h3>
+            
+            <h3>Score: {secondsState}</h3>
+            
             <button className={hiddenState === true ? 'hidden' : 'start-game'} onClick={() => { startGame(); hideButton(); }}> Start Game </button>
         </div>
   )

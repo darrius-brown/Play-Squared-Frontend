@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { postGameRecommendation } from '../service/Api';
+import { postGameRecommendation } from '../api/Api';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 

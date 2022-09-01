@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getGameRecommendations } from '../service/Api'
+import { getGameRecommendations } from '../api/Api'
 import Card from 'react-bootstrap/Card';
 
 function GameRecsAllRecs({ accessToken, userSignedIn }) {
