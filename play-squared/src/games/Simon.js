@@ -15,13 +15,9 @@ function Simon({ accessToken, userSignedIn }) {
     const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
     const [solutionState, setSolutionState] = useState(squareStateHistory)
     const [hiddenState, setHiddenState] = useState(false)
-    const [scoreState, setScoreState] = useState(200)
+    const [scoreState, setScoreState] = useState(5000)
     const [canClick, setCanClick] = useState(false)
     const audioClip = {sound: audio, label: 'audio'}
-
-    useEffect(() => {
-        console.log(userSignedIn)
-      }, [])
     
     const soundPlay = (src) => {
         const sound = new Howl({
@@ -30,11 +26,25 @@ function Simon({ accessToken, userSignedIn }) {
         sound.play()
     }
     Howler.volume(1.0)
+
     const changeBoard = (gridValue) => {
         setBoardState(
             gridValue
         )
     }
+
+    const startGame = async (newArray) => {
+        setCanClick(false)
+        let updatedArray = squareStateHistory
+        if (newArray) {
+            updatedArray = newArray
+        }
+        for (const square of updatedArray) {
+            await placeHistory(square)
+        }
+        setCanClick(true)
+    }
+
     const squareClicked = (squareClicked) => {
         if (!canClick) return
         const newArr = [...solutionState]
@@ -50,20 +60,25 @@ function Simon({ accessToken, userSignedIn }) {
                 startGame(newArray)
             }
         } else {
-            postScore({
-                game: 'Simon',
-                amount: scoreState,
-                board: boardState,
-                author: 'testing'}, 
-                accessToken)
-            alert(`You scored ${scoreState}! Try again!`)
-            let newGameSquare = newSquare
-            setSquareStateHistory([newGameSquare])
-            setSolutionState([newGameSquare])
-            setHiddenState(false)
-            setScoreState(0)
-            setCanClick(false)
+            endGame() 
         }
+    }
+
+    const endGame = () => {
+        console.log(userSignedIn)
+        postScore({
+            game: 'Simon',
+            amount: scoreState,
+            board: boardState,
+        }, 
+            accessToken)
+        alert(`You scored ${scoreState}! Try again!`)
+        let newGameSquare = newSquare
+        setSquareStateHistory([newGameSquare])
+        setSolutionState([newGameSquare])
+        setHiddenState(false)
+        setScoreState(0)
+        setCanClick(false)
     }
 
     const placeHistory = (square) => {
@@ -82,17 +97,7 @@ function Simon({ accessToken, userSignedIn }) {
         })
     }
 
-    const startGame = async (newArray) => {
-        setCanClick(false)
-        let updatedArray = squareStateHistory
-        if (newArray) {
-            updatedArray = newArray
-        }
-        for (const square of updatedArray) {
-            await placeHistory(square)
-        }
-        setCanClick(true)
-    }
+   
 
     const hideButton = () => {
         setHiddenState(true)

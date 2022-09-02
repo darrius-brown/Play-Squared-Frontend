@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import axios from 'axios';
+import {Link} from 'react-router-dom'
 
 function SignIn({ setUserSignedIn, setAccessToken }) {
     const navigate = useNavigate()
@@ -34,28 +34,6 @@ function SignIn({ setUserSignedIn, setAccessToken }) {
         if (!clientFormValidation(formState)) {
             return
         }
-
-        // axios
-        //     .post(loginEndpoint, formState)
-        //     .then(data => {
-        //         if (!data) {
-        //             console.log(`problem with network request: ${networkErrMsg}`)
-        //         } else {
-
-        //             console.log('data' + data)
-        //             setUserSignedIn(formState.username)
-        //             setAccessToken(data.access)
-        //             localStorage.setItem('user', formState.username)
-        //             localStorage.setItem('access_token', data.data.access)
-        //             // setFormState(initialState)
-        //             navigate('/')
-        //         }
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //         setClientErrMsg("The username or password you entered is incorrect.")
-        //         navigate('/login')
-        //     })
 
         fetch(loginEndpoint, 
                 {
@@ -103,12 +81,16 @@ function SignIn({ setUserSignedIn, setAccessToken }) {
                     <Form.Label>Username:</Form.Label>
                     <Form.Control id="username" name="username" type="text" onChange={handleChange} />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3" controlId="password">
                     <Form.Label>Password:</Form.Label>
-                    <Form.Control id="password" name="username" type="text" onChange={handleChange} />
+                    <Form.Control id="password" name="password" type="password" onChange={handleChange} />
                 </Form.Group>
                 <Button variant="success" className="submit-gamerec" type="submit" >Login</Button>
             </Form>
+            <p id='no-account'>Don't have an account?</p>
+            <Link to='/signup'>
+                <div className="mb-5"> Sign up</div>
+            </Link>
 
             <p>{networkErrMsg}</p>
             <p>{clientErrMsg}</p>

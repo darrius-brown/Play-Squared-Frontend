@@ -37,7 +37,7 @@ function GameRecsAllRecs({ accessToken, userSignedIn }) {
                     {gameRec.description}
                   </p>
                   <footer className="blockquote-footer">
-                  {gameRec.author.username}
+                  {gameRec.author}
                   </footer>
                 </blockquote>
               </Card.Body>

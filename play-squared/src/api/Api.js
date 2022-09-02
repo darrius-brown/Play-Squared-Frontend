@@ -39,17 +39,28 @@ export function postGameRecommendation(content, accessToken) {
     })  
 }
 
+export function postSignUp(content) {
+  const URL = `http://localhost:8000/signup/`
+  const {username, password} = content 
+    return axios.post(URL, {
+      username: username,
+      password: password,
+    })
+    .then(res => {
+      return res.data
+    })  
+}
+
 export function postScore(content, accessToken) {
   const URL = `http://localhost:8000/leaderboard/`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 }
-  const {amount, board, author} = content 
+  const {amount, board} = content 
     return axios.post(URL, {
       game: 'Simon',
       amount: amount,
       board: board,
-      author: author.username,
     }, 
     {headers})
     .then(res => {

@@ -26,7 +26,7 @@ function App() {
   const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'))
   return (
     <div className = 'app'>
-      <NavBar/>
+      <NavBar userSignedIn={userSignedIn} accessToken={accessToken}/>
       <Routes>
         <Route path='/signin' element={<SignIn setUserSignedIn={setUserSignedIn} setAccessToken={setAccessToken}/>}/>
         <Route path='/signup' element={<SignUp/>}/>

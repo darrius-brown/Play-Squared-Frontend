@@ -4,8 +4,8 @@ function Signout({setUserSignedIn, setAccessToken}) {
     useEffect(() => {
         localStorage.removeItem('user')
         localStorage.removeItem('access_token')
-        setUserSignedIn(null)
-        setAccessToken(null)
+        setUserSignedIn(false)
+        setAccessToken()
     })
   return (
     <div>

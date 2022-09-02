@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import {useNavigate} from 'react-router-dom';
+import { postSignUp } from '../api/Api';
 
 function SignUp({setUserSignedIn}){
 
@@ -32,41 +33,20 @@ function SignUp({setUserSignedIn}){
   }
 
   const handleLogin = (e) => {
-        
     e.preventDefault()
-
     setNetworkErrMsg(null)
     if (!clientFormValidation(formInfo)) {
         return
     }
     
-    const apiUrl = 'https://localhost:8000/signup/'
+  postSignUp({
+    game: 'Simon',
+    username: formInfo.username,
+    password: formInfo.password,
     
-    fetch( apiUrl , 
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type':'application/json',
-                },
-                body: JSON.stringify(formInfo)
-            }
-    )
-        .then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                statusCodeToErr(res)
-                return Promise.resolve(null)
-            }
-        })
-        .then(data => {
-            if (!data) {
-                console.log(`problem with network request: ${networkErrMsg}`)
-            } else {
-                setUserSignedIn(data.username)
-                navigate('signin')
-            }
-        })
+    })
+  navigate('/signin')
+
 
   }
 

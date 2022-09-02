@@ -29,7 +29,7 @@ function Leaderboard({ accessToken, userSignedIn }) {
     return database.map((score, index) => {
       return (
       <>
-        <ListGroup.Item className='simon-score' key={index}>Score: {score.amount}  {score.board == 9 ? '3x3' : score.board == 16 ? '4x4' : '5x5'} {score.author.username} </ListGroup.Item>
+        <ListGroup.Item className='simon-score' key={index}>Score: {score.amount}  {score.board == 9 ? '3x3' : score.board == 16 ? '4x4' : '5x5'} {score.author} </ListGroup.Item>
       </>
       )
     })

@@ -38,10 +38,11 @@ function GameRecs() {
             <Card.Text>
               View your Game Recommendations
             </Card.Text>
-            <Link to='myrecs'>
-              <Button variant="primary">My Views</Button>
-            </Link>
+            {/* <Link to='myrecs'> */}
+            <h5>Feature Currently Disabled</h5>
+            {/* </Link> */}
           </Card.Body>
+          
         </Card>
         <Card style={{ width: '12rem' }}>
           <CardImage all></CardImage>
