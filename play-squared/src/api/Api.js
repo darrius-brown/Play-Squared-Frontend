@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function getGameRecommendations(accessToken) {
-    const URL = `http://localhost:8000/gamerecs`
+    const URL = `https://play-squared.herokuapp.com/gamerecs`
     const headers = { 
       'Authorization': `Bearer ${accessToken}`,
   };
@@ -12,7 +12,7 @@ export function getGameRecommendations(accessToken) {
   }
 
   export function getGameRecommendationsByID(id, accessToken) {
-    const URL = `http://localhost:8000/gamerecs/${id}`
+    const URL = `https://play-squared.herokuapp.com/gamerecs/${id}`
     const headers = { 
       'Authorization': `Bearer ${accessToken}`,
   }
@@ -24,7 +24,7 @@ export function getGameRecommendations(accessToken) {
   }
 
 export function postGameRecommendation(content, accessToken) {
-  const URL = `http://localhost:8000/gamerecs/`
+  const URL = `https://play-squared.herokuapp.com/gamerecs/`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 }
@@ -40,7 +40,7 @@ export function postGameRecommendation(content, accessToken) {
 }
 
 export function postSignUp(content) {
-  const URL = `http://localhost:8000/signup/`
+  const URL = `https://play-squared.herokuapp.com/signup/`
   const {username, password} = content 
     return axios.post(URL, {
       username: username,
@@ -52,7 +52,7 @@ export function postSignUp(content) {
 }
 
 export function postScore(content, accessToken) {
-  const URL = `http://localhost:8000/leaderboard/`
+  const URL = `https://play-squared.herokuapp.com/leaderboard/`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 }
@@ -69,7 +69,7 @@ export function postScore(content, accessToken) {
 }
 
 export function editGameRecommendation(content, id, accessToken) {
-  const URL = `http://localhost:8000/gamerecs/${id}`
+  const URL = `https://play-squared.herokuapp.com/gamerecs/${id}`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 };
@@ -86,7 +86,7 @@ export function editGameRecommendation(content, id, accessToken) {
 }
 
 export function deleteGameRecommendation(id, accessToken) {
-  const URL = `http://localhost:8000/gamerecs/${id}/`
+  const URL = `https://play-squared.herokuapp.com/gamerecs/${id}/`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 }
@@ -96,7 +96,7 @@ export function deleteGameRecommendation(id, accessToken) {
   })
 }
 export function getScore(accessToken) {
-  const URL = `http://localhost:8000/leaderboard`
+  const URL = `https://play-squared.herokuapp.com/leaderboard`
   const headers = { 
     'Authorization': `Bearer ${accessToken}`,
 };
@@ -107,7 +107,7 @@ export function getScore(accessToken) {
 }
 
 // export function login(content, accessToken) {
-//   const URL = `http://localhost:8000/api/token/`
+//   const URL = `https://play-squared.herokuapp.com/api/token/`
 //   const {username, password} = content 
 //     return axios.post(URL, {
 //       username: username,

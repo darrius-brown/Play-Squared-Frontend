@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 
 function SignIn({ setUserSignedIn, setAccessToken }) {
     const navigate = useNavigate()
-    const loginEndpoint = 'http://localhost:8000/api/token/'
+    const loginEndpoint = 'https://play-squared.herokuapp.com/api/token/'
     const initialState = { username: '', password: '' }
     const [formState, setFormState] = useState(initialState)
     const [networkErrMsg, setNetworkErrMsg] = useState(null)
@@ -61,11 +61,9 @@ function SignIn({ setUserSignedIn, setAccessToken }) {
 
                     setUserSignedIn(formState.username)
                     setAccessToken(data.access)
-                    // add tokens to localstorage here
 
                     localStorage.setItem('access_token', data.access)
                     localStorage.setItem('user', formState.username)
-                    // redirect here
                     navigate('/')
                 }
             })

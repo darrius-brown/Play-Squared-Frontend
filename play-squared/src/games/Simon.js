@@ -15,7 +15,7 @@ function Simon({ accessToken, userSignedIn }) {
     const [squareStateHistory, setSquareStateHistory] = useState([newSquare])
     const [solutionState, setSolutionState] = useState(squareStateHistory)
     const [hiddenState, setHiddenState] = useState(false)
-    const [scoreState, setScoreState] = useState(5000)
+    const [scoreState, setScoreState] = useState(0)
     const [canClick, setCanClick] = useState(false)
     const audioClip = {sound: audio, label: 'audio'}
     
