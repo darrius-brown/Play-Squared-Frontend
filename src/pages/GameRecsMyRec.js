@@ -26,7 +26,7 @@ function GameRecsMyRec({ accessToken, userSignedIn }) {
   }
   useEffect(() => {
     getDatabase()
-  }, [])
+  }, )
 
   if (database.length <= 0) {
     return (

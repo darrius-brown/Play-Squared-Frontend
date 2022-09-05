@@ -13,10 +13,6 @@ function SignUp({setUserSignedIn}){
   const [networkErrMsg, setNetworkErrMsg] = useState(null)
   const [clientErrMsg, setClientErrMsg] = useState(null)
 
-  const statusCodeToErr = () => {
-    setNetworkErrMsg(`Username Unavailable`)
-  }
-
   const clientFormValidation = (formInfo) => {
     const blankFields = Object.entries(formInfo)
                               .filter(kv => kv[1] === '')

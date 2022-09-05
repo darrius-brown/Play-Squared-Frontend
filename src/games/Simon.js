@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { CreateVariables } from '../styled-components/styles'
 import Button from 'react-bootstrap/Button'
 import audio from '../sounds/1.mp3'
@@ -6,9 +6,6 @@ import {Howl, Howler} from 'howler'
 import { postScore } from '../api/Api'
 function Simon({ accessToken, userSignedIn }) {
 
-    const initialState = {
-        user_string: userSignedIn ? userSignedIn : "unknown"
-      }
     const [squareState, setSquareState] = useState(null)
     const [boardState, setBoardState] = useState(9)
     const newSquare = Math.floor(Math.random() * boardState)

@@ -12,13 +12,11 @@ function Leaderboard({ accessToken, userSignedIn }) {
       .then((data) => {
         setDatabase(data)
       })
-
   }
 
   useEffect(() => {
     getDatabase()
-    console.log(userSignedIn)
-  }, [])
+  }, )
 
   if (database.length <= 0) {
     return (

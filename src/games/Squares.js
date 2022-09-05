@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import { CreateVariables } from '../styled-components/styles'
 import audio from '../sounds/1.mp3'
 import {Howl, Howler} from 'howler'
@@ -17,10 +17,6 @@ function Squares({ accessToken, userSignedIn }) {
         sound.play()
     }
     Howler.volume(1.0)
-
-    const initialState = {
-        user_string: userSignedIn ? userSignedIn : "unknown"
-      }
 
     const [secondsState, setSecondsState] = useState('60')
     const [boardState, setBoardState] = useState(9)
@@ -156,7 +152,7 @@ function Squares({ accessToken, userSignedIn }) {
                 <Item  squaresInt id={index} onClick={e => squareClicked(e.target.id)}  className = {solvedState.includes(index) ? 'hidden' : ''}> {gameNumbers[index]}</Item>:
                 selectedState.includes(index) ?
                 <Item squaresSelected id={index} onClick={e => squareClicked(e.target.id)} className = {solvedState.includes(index) ? 'hidden' : ''}> {solutionNumbers[index - halfBoard]}</Item> :
-                <Item squaresSquare id={index} onClick={e => squareClicked(e.target.id)} className = {(solvedState.includes(index) || boardState % 2 !== 0 && index === boardState - 1)  ? 'hidden' : ''}> {solutionNumbers[index - halfBoard]}</Item>
+                <Item squaresSquare id={index} onClick={e => squareClicked(e.target.id)} className = {((solvedState.includes(index)) || (boardState % 2 !== 0 && index === boardState - 1))  ? 'hidden' : ''}> {solutionNumbers[index - halfBoard]}</Item>
                 )
             )}
         </div>  
