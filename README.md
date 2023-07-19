@@ -8,7 +8,7 @@ On top of playing multiple games, you can request an idea for a game that you wo
 
 Upon completion of a game, if you have a score ranking in the top 10 highest scores, you will be featured on our leaderboard for all users to see!
 
-[Click here to play! TBA ]
+[Click here to play!](https://fanciful-entremet-a52331.netlify.app/)
 
 ## Screenshots
 ---
